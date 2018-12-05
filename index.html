@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Invoice Factory</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="file:///Users/cherubimpalukury/Code/Web/Invoice%20Factory/style.css">
+    </head>
+    <body>
+        <div id="invoice_form">
+            <hr>
+            
+            <div class="text-center" id="logo_display">
+                Upload your comany logo.
+            </div>
+            <input type="file" id="company_logo" style="display: none;">
+            <button class="btn btn-dark" accept="image/png, image/jpeg" onclick="uploadImage()">Upload Logo</button>
+
+            <hr>
+            
+            <div style="overflow: auto;">
+                <div style="float: left; width: 50%;">
+                    <div class="invoice_element">
+                        <input type="text" id="company_name" placeholder="Company's name" size="32">
+                    </div>
+                    <div class="invoice_element">
+                        <input type="email" id="company_email" placeholder="Company's email" size="32">
+                    </div>
+                    <div class="invoice_element">
+                        <input type="text" id="company_addr" placeholder="Company's address" size="32">
+                    </div>
+                    <div class="invoice_element">
+                        <input type="url" id="company_web" placeholder="Company's website URL" size="32">
+                    </div>
+                    <div class="invoice_element">
+                            <input type="tel" id="company_tel" placeholder="Company's contatct number" size="32">
+                    </div>
+                </div>
+                <div style="float: right; width: 50%;">
+                    <div class="invoice_element">
+                        <input type="text" id="client_name" placeholder="Client's name" size="32">
+                    </div>
+                    <div class="invoice_element">
+                        <input type="tel" id="client_tel" placeholder="Client's contatct number" size="32">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="invoice_element">
+                <input type="date" id="invoice_date">
+            </div>
+
+            <div class="invoice_element">
+                <textarea style="width:80%; height: 15%; resize: none; border-radius: 10px;" placeholder="Enter a short message for your client here :)" id="invoice_msg"></textarea>
+            </div>
+
+            <hr>
+
+            <div>
+                <b>Purchases:</b><br>
+                <div id="items"></div>
+                <button class="btn btn-success" onclick="addItem()">Add item</button>
+            </div>
+
+            <hr>
+
+            <div><button class="btn btn-primary" onclick="generatePDF()">Generate Invoice</button></div>
+        </div>
+    </body>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+    <script src="file:///Users/cherubimpalukury/Code/Web/Invoice%20Factory/script.js"></script>
+</html>

@@ -1,0 +1,41 @@
+#invoice_form {
+    background-color: rgba(22, 195, 207, 0.4);
+
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+
+    text-align: center;
+
+    width: 65%;
+    height: auto;
+}
+
+.invoice_element {
+    margin: 10px;
+    font-size: 14px;
+}
+
+body {
+    margin: auto;
+
+    background: #2980b9;
+    background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);
+    background: linear-gradient(to right, #2c3e50, #2980b9);
+
+}
+
+input {
+    size: 30px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#logo_display {
+    margin: 10px;
+    color: white;
+    text-align: center;
+}
