@@ -4,6 +4,7 @@ var itemId = 0;
 // flag to check whether user has uploaded company logo or not
 var hasLogo = false;
 
+// wrapper function that adds a new item to the items division
 function addItem() {
     itemId++;
     var html = '<input type="text" placeholder="Item name" class="invoice_element"/>' + 
@@ -13,6 +14,7 @@ function addItem() {
     addElement('items', 'p', 'item-' + itemId, html);
 }
 
+// adds a new item to the items divison
 function addElement(parentId, elementTag, elementId, html) {
     var p = document.getElementById(parentId);
     var newElement = document.createElement(elementTag);
@@ -21,11 +23,13 @@ function addElement(parentId, elementTag, elementId, html) {
     p.appendChild(newElement);
 }
 
+// removes an item from the items division
 function removeElement(elementId) {
     var element = document.getElementById(elementId);
     element.parentNode.removeChild(element);
 }
 
+// function to check when an input file is loaded
 window.onload = function() {
     var fileInput = document.getElementById('company_logo');
     var fileDisplayArea = document.getElementById('logo_display');
@@ -57,24 +61,20 @@ window.onload = function() {
     });
 }
 
+// function to trigger the invisible file input element
 function uploadImage() {
     var image_input = document.getElementById('company_logo');
     image_input.click();
-
-    if (image_input.value == "")
-        return;
-    else
-        console.log("change image for Pete's sake!");
-    
 }
 
+// orchestrates the creation of invoice
 function generatePDF() {
     var doc = new jsPDF();
 
     generateHeader(doc);
     generateInvoice(doc);
 
-    doc.save('test.pdf');
+    doc.save('generated_invoice.pdf');
 }
 
 function generateHeader(doc) {
