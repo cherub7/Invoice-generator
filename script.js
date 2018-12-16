@@ -1,3 +1,7 @@
+/**************************************************************************************************
+ * Methods and Variables used for editing items
+ **************************************************************************************************/
+
 // keeps track of id of the item being generated
 var itemId = 0;
 
@@ -10,7 +14,8 @@ function addItem() {
     var html = '<input type="text" placeholder="Item name" class="invoice_element"/>' + 
                 '<input type="number" placeholder="Item count" class="invoice_element"/>' + 
                 '<input type="number" placeholder="Item cost" class="invoice_element"/>' +
-                '<button class="btn btn-danger" onclick="javascript:removeElement(\'item-' + itemId + '\'); return false;">Remove</button>';
+                '<button class="btn btn-danger" onclick="javascript:removeElement(\'item-' + 
+                itemId + '\'); return false;">Remove</button>';
     addElement('items', 'p', 'item-' + itemId, html);
 }
 
@@ -29,11 +34,18 @@ function removeElement(elementId) {
     element.parentNode.removeChild(element);
 }
 
-// function to check when an input file is loaded
+
+/**************************************************************************************************
+ * Methods to handle the company logo upload
+ **************************************************************************************************/
+
 window.onload = function() {
+    loadDataFormCookie();
+
     var fileInput = document.getElementById('company_logo');
     var fileDisplayArea = document.getElementById('logo_display');
 
+    // function to check when an input file is loaded
     fileInput.addEventListener('change', function(e) {
         var file = fileInput.files[0];
         var imageType = /image.*/;
@@ -56,8 +68,6 @@ window.onload = function() {
             hasLogo = false;
             fileDisplayArea.innerHTML = "File not supported!"
         }
-
-        console.log(fileInput.value);
     });
 }
 
@@ -67,22 +77,34 @@ function uploadImage() {
     image_input.click();
 }
 
-// orchestrates the creation of invoice
+
+/**************************************************************************************************
+ * Methods to generate the invoice pdf
+ **************************************************************************************************/
+
+ // driver function for creating the invoice pdf
 function generatePDF() {
     var doc = new jsPDF();
 
     generateHeader(doc);
     generateInvoice(doc);
 
+    // check whether new cookie needs to be generated
+    if (document.getElementById('set_cookie').checked) {
+        createCookie();
+        updateSetCookieInfo();
+        document.getElementById('set_cookie').checked = false;
+    }
+
     doc.save('generated_invoice.pdf');
 }
 
 function generateHeader(doc) {
-    company_name = document.getElementById('company_name').value;
-    company_email = document.getElementById('company_email').value;
-    company_addr = document.getElementById('company_addr').value;
-    company_web = document.getElementById('company_web').value;
-    company_tel = document.getElementById('company_tel').value;
+    var company_name = document.getElementById('company_name').value;
+    var company_email = document.getElementById('company_email').value;
+    var company_addr = document.getElementById('company_addr').value;
+    var company_web = document.getElementById('company_web').value;
+    var company_tel = document.getElementById('company_tel').value;
 
     var x = 15;
     if (hasLogo) {
@@ -147,8 +169,9 @@ function generatePurchaseList(doc) {
         items.push(item);
     }
 
-    if (items.length == 0)
+    if (items.length == 0) {
         return;
+    }
 
     items.push({
         'Name': 'Total: ',
@@ -168,4 +191,62 @@ function generatePurchaseList(doc) {
     }
 
     doc.table(55, 90, items, headers, config);
+}
+
+
+/**************************************************************************************************
+ * Methods to handle cookie
+ **************************************************************************************************/
+
+function createCookie() {
+    var cookie_names = [ 'company_name', 'company_email', 'company_addr', 'company_web', 'company_tel' ];
+
+    for (var i = 0; i < 5; i++) {
+        document.cookie = (cookie_names[i] + "=" + document.getElementById(cookie_names[i]).value + "; ");
+    }
+
+    // cookie expiry is set to 30 days
+    var date = new Date();
+    date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+    document.cookie = "expires=" + date.toGMTString() + ";";
+
+    document.cookie = "path=/;"
+}
+
+function getCookie(cookie_name) {
+    var name = cookie_name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var cookies = decodedCookie.split(';');
+
+    for(var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+
+      while (cookie.charAt(0) == ' ') {
+        cookie = cookie.substring(1);
+      }
+
+      if (cookie.indexOf(name) == 0) {
+        return cookie.substring(name.length, cookie.length);
+      }
+    }
+
+    return "";
+}
+
+function updateSetCookieInfo() {
+    if (document.cookie != "") {
+        document.getElementById('set_cookie_message').innerText = 'Allow cookies to store your company details.(cookie already exists)';
+        document.getElementById('set_cookie_invalid_message').innerText = 'Select this option to overwrite existing cookie';
+        document.getElementById('set_cookie_valid_message').innerText = 'Details are stored everytime PDF is generated.(overwrite existing cookie)';
+    }
+}
+
+function loadDataFormCookie() {
+    updateSetCookieInfo();
+    
+    var cookie_names = [ 'company_name', 'company_email', 'company_addr', 'company_web', 'company_tel' ];
+
+    for (var i = 0; i < 5; i++) {
+        document.getElementById(cookie_names[i]).value = getCookie(cookie_names[i]);
+    }
 }
