@@ -5,18 +5,18 @@
         <link rel="stylesheet" type="text/css" href="/Invoice-generator/style.css">
     </head>
     <body>
-        <div id="invoice_form">
+        <div class="jumbotron" id="invoice_form">
             <hr>
             
             <div class="text-center" id="logo_display">
                 Upload your comany logo.
             </div>
             <input type="file" id="company_logo" style="display: none;">
-            <button class="btn btn-dark" accept="image/png, image/jpeg" onclick="uploadImage()">Upload Logo</button>
+            <button class="btn btn-primary" accept="image/png, image/jpeg" onclick="uploadImage()">Upload Logo</button>
 
             <hr>
             
-            <div style="overflow: auto;">
+            <div class style="overflow: auto;">
                 <div style="float: left; width: 50%;">
                     <div class="invoice_element">
                         <input type="text" id="company_name" placeholder="Company's name" size="32">
@@ -59,10 +59,19 @@
             <div>
                 <b>Purchases:</b><br>
                 <div id="items"></div>
-                <button class="btn btn-success" onclick="addItem()">Add item</button>
+                <button class="btn btn-primary" onclick="addItem()">Add item</button>
             </div>
 
             <hr>
+
+            <form class="was-validated">
+            <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="set_cookie" required>
+                  <label class="custom-control-label" for="set_cookie" id="set_cookie_message">Allow cookies to store your company details.</label>
+                  <div class="invalid-feedback" id="set_cookie_invalid_message">Company details will be lost when you refresh/reopen the page.</div>
+                  <div class="valid-feedback" id="set_cookie_valid_message">Details are stored everytime PDF is generated.</div>
+            </div>
+            </form>
 
             <div><button class="btn btn-primary" onclick="generatePDF()">Generate Invoice</button></div>
         </div>
