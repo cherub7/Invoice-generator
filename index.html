@@ -1,82 +1,122 @@
 <html>
     <head>
         <title>Invoice Factory</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">	
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/Invoice-generator/style.css">
     </head>
+    
     <body>
-        <div class="jumbotron" id="invoice_form">
-            <hr>
-            
-            <div class="text-center" id="logo_display">
-                Upload your comany logo.
+        <nav>
+            <div class="nav-wrapper grey darken-3">
+                <a href="#" class="brand-logo" style="padding-left: 20px;">Invoice Generator</a>
+                <ul id="nav-mobile black" class="right hide-on-med-and-down">
+                    <li><a href="https://cherub7.github.io/Invoice-generator/">Home</a></li>
+                    <li><a href="https://cherub7.github.io/Invoice-generator/">About</a></li>
+                </ul>
             </div>
-            <input type="file" id="company_logo" style="display: none;">
-            <button class="btn btn-primary" accept="image/png, image/jpeg" onclick="uploadImage()">Upload Logo</button>
+        </nav>
+                      
 
-            <hr>
-            
-            <div class style="overflow: auto;">
-                <div style="float: left; width: 50%;">
-                    <div class="invoice_element">
-                        <input type="text" id="company_name" placeholder="Company's name" size="32">
-                    </div>
-                    <div class="invoice_element">
-                        <input type="email" id="company_email" placeholder="Company's email" size="32">
-                    </div>
-                    <div class="invoice_element">
-                        <input type="text" id="company_addr" placeholder="Company's address" size="32">
-                    </div>
-                    <div class="invoice_element">
-                        <input type="url" id="company_web" placeholder="Company's website URL" size="32">
-                    </div>
-                    <div class="invoice_element">
-                            <input type="tel" id="company_tel" placeholder="Company's contatct number" size="32">
-                    </div>
+        <div id="invoice_form">
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">1. Company details</span>
+
+                <div class="text-center" id="logo_display">
+                    Upload your comany logo.
                 </div>
-                <div style="float: right; width: 50%;">
-                    <div class="invoice_element">
-                        <input type="text" id="client_name" placeholder="Client's name" size="32">
+                <input type="file" id="company_logo" style="display: none;">
+                <a class="waves-effect waves-light btn-small black" accept="image/png, image/jpeg" onclick="uploadImage()"><i class="material-icons left">image</i>Upload logo</a> 
+                
+                <div>
+                    <center>
+                    <div class="input-field invoice_element">
+                        <input type="text" id="company_name">
+                        <label class="active" for="company_name">Name</label>
                     </div>
-                    <div class="invoice_element">
-                        <input type="tel" id="client_tel" placeholder="Client's contatct number" size="32">
+                    <div class="input-field invoice_element">
+                        <input type="email" id="company_email">
+                        <label class="active" for="company_email">Email</label>
                     </div>
+                    <div class="input-field invoice_element">
+                        <input type="text" id="company_addr">
+                        <label class="active" for="company_addr">Address</label>
+                    </div>
+                    <div class="input-field invoice_element">
+                        <input type="url" id="company_web">
+                        <label class="active" for="company_web">Website URL</label>
+                    </div>
+                    <div class="input-field invoice_element">
+                        <input type="tel" id="company_tel">
+                        <label class="active" for="company_tel">Contact number</label>
+                    </div>
+
+                    <div style="height: 50px;">
+                        <div style="float: left; width: 50%;">
+                            <a class="waves-effect waves-light btn-small black" onclick="saveData()"><i class="material-icons left">save</i>save details</a> 
+                        </div>
+                        <div style="float: right; width: 50%;">
+                            <a class="waves-effect waves-light btn-small black" onclick="clearData()"><i class="material-icons left">delete</i>clear details</a>
+                        </div>
+                    </div>
+                    </center>
                 </div>
             </div>
-
-            <hr>
-
-            <div class="invoice_element">
-                <input type="date" id="invoice_date">
+            
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">2. Client details</span>
+                <center>
+                <div class="input-field invoice_element">
+                    <input type="text" id="client_name">
+                    <label for="client_name">Name</label>
+                </div>
+                <div class="input-field invoice_element">
+                    <input type="tel" id="client_tel">
+                    <label for="client_tel">Contact number</label>
+                </div>
+                <div class="input-field invoice_element">
+                    <input type="text" id="client_place">
+                    <label for="client_place">Place</label>
+                </div>
+                </center>
             </div>
 
-            <div class="invoice_element">
-                <textarea style="width:80%; height: 15%; resize: none; border-radius: 10px;" placeholder="Enter a short message for your client here :)" id="invoice_msg"></textarea>
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">3. Invoice content</span>
+                <center>
+                <div class="input-field  invoice_element">
+                    <input type="text" class="datepicker" id="invoice_date">
+                    <label for="invoice_msg">Date</label>
+                </div>
+
+                <div class="input-field invoice_element">
+                    <textarea class="materialize-textarea" id="invoice_msg"></textarea>
+                    <label for="invoice_msg">Invoice Message</label>
+                </div>
+                </center>
             </div>
 
-            <hr>
-
-            <div>
-                <b>Purchases:</b><br>
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">4. Purchases</span>
                 <div id="items"></div>
-                <button class="btn btn-primary" onclick="addItem()">Add item</button>
+                <a class="btn-floating btn-medium waves-effect waves-light black" onclick="addItem()"><i class="material-icons">add</i></a>
             </div>
 
-            <hr>
-
-            <form class="was-validated">
-            <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input" id="set_cookie" required>
-                  <label class="custom-control-label" for="set_cookie" id="set_cookie_message">Allow cookies to store your company details.</label>
-                  <div class="invalid-feedback" id="set_cookie_invalid_message">Company details will be lost when you refresh/reopen the page.</div>
-                  <div class="valid-feedback" id="set_cookie_valid_message">Details are stored everytime PDF is generated.</div>
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">5. Preview and Generate Invoice</span>
+                
+                <div style="padding: 50px;">
+                    <a class="waves-effect waves-light btn-large black" onclick="generatePDF(false)"><i class="material-icons left">visibility</i>Preview Invoice</a>
+                </div>
+                
+                <div style="padding: 50px;">
+                    <a class="waves-effect waves-light btn-large black" onclick="generatePDF(true)"><i class="material-icons left">picture_as_pdf</i>Generate Invoice</a>
+                </div>
             </div>
-            </form>
-
-            <div><button class="btn btn-primary" onclick="generatePDF()">Generate Invoice</button></div>
         </div>
     </body>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="/Invoice-generator/script.js"></script>
 </html>
