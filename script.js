@@ -11,11 +11,12 @@ var hasLogo = false;
 // wrapper function that adds a new item to the items division
 function addItem() {
     itemId++;
-    var html = '<input type="text" placeholder="Item name" class="invoice_element"/>' + 
-                '<input type="number" placeholder="Item count" class="invoice_element"/>' + 
-                '<input type="number" placeholder="Item cost" class="invoice_element"/>' +
-                '<button class="btn btn-danger" onclick="javascript:removeElement(\'item-' + 
-                itemId + '\'); return false;">Remove</button>';
+    var html = '<div class="card purchase_item" style="padding: 25px; border-radius: 10px;">' + 
+                '<input type="text" placeholder="Item name"/>' + 
+                '<input type="number" placeholder="Item count"/>' + 
+                '<input type="number" placeholder="Item cost"/>' +
+                '<a class="btn-floating btn-medium waves-effect waves-light black" onclick="javascript:removeElement(\'item-' + 
+                itemId + '\'); return false;"><i class="material-icons">remove</i>Remove</a></div>';
     addElement('items', 'p', 'item-' + itemId, html);
 }
 
@@ -40,7 +41,8 @@ function removeElement(elementId) {
  **************************************************************************************************/
 
 window.onload = function() {
-    loadDataFormCookie();
+    // try to fill the form with localStorage
+    fillData();
 
     var fileInput = document.getElementById('company_logo');
     var fileDisplayArea = document.getElementById('logo_display');
@@ -69,6 +71,8 @@ window.onload = function() {
             fileDisplayArea.innerHTML = "File not supported!"
         }
     });
+
+    calendar = M.Datepicker.init(document.getElementById('invoice_date'), {});
 }
 
 // function to trigger the invisible file input element
@@ -83,20 +87,16 @@ function uploadImage() {
  **************************************************************************************************/
 
  // driver function for creating the invoice pdf
-function generatePDF() {
+function generatePDF(save_doc) {
     var doc = new jsPDF();
 
     generateHeader(doc);
     generateInvoice(doc);
 
-    // check whether new cookie needs to be generated
-    if (document.getElementById('set_cookie').checked) {
-        createCookie();
-        updateSetCookieInfo();
-        document.getElementById('set_cookie').checked = false;
-    }
-
-    doc.save('generated_invoice.pdf');
+    if (save_doc)
+        doc.save('generated_invoice.pdf');
+    else
+        window.open(doc.output('bloburl'));
 }
 
 function generateHeader(doc) {
@@ -158,12 +158,14 @@ function generatePurchaseList(doc) {
     var items = [];
     var total_cost = 0;
 
+    debugger;
+
     for (var i = 0; i < items_div.children.length; i++) {
         var item = new Object();
 
-        item.Name = items_div.children[i].children[0].value;
-        item.Qty = items_div.children[i].children[1].value;
-        item.Cost = items_div.children[i].children[2].value;
+        item.Name = items_div.children[i].children[0].children[0].value;
+        item.Qty = items_div.children[i].children[0].children[1].value;
+        item.Cost = items_div.children[i].children[0].children[2].value;
 
         total_cost += item.Qty * item.Cost;
         items.push(item);
@@ -195,58 +197,29 @@ function generatePurchaseList(doc) {
 
 
 /**************************************************************************************************
- * Methods to handle cookie
+ * Variables and Methods to handle localStorage
  **************************************************************************************************/
 
-function createCookie() {
-    var cookie_names = [ 'company_name', 'company_email', 'company_addr', 'company_web', 'company_tel' ];
+var store = window.localStorage;
+var keys = [ 'company_name', 'company_email', 'company_addr', 'company_web', 'company_tel' ];
 
+// save data from input fields onto local storage
+function saveData() {
     for (var i = 0; i < 5; i++) {
-        document.cookie = (cookie_names[i] + "=" + document.getElementById(cookie_names[i]).value + "; ");
-    }
-
-    // cookie expiry is set to 30 days
-    var date = new Date();
-    date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
-    document.cookie = "expires=" + date.toGMTString() + ";";
-
-    document.cookie = "path=/;"
-}
-
-function getCookie(cookie_name) {
-    var name = cookie_name + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var cookies = decodedCookie.split(';');
-
-    for(var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i];
-
-      while (cookie.charAt(0) == ' ') {
-        cookie = cookie.substring(1);
-      }
-
-      if (cookie.indexOf(name) == 0) {
-        return cookie.substring(name.length, cookie.length);
-      }
-    }
-
-    return "";
-}
-
-function updateSetCookieInfo() {
-    if (document.cookie != "") {
-        document.getElementById('set_cookie_message').innerText = 'Allow cookies to store your company details.(cookie already exists)';
-        document.getElementById('set_cookie_invalid_message').innerText = 'Select this option to overwrite existing cookie';
-        document.getElementById('set_cookie_valid_message').innerText = 'Details are stored everytime PDF is generated.(overwrite existing cookie)';
+        store.setItem(keys[i], document.getElementById(keys[i]).value);
     }
 }
 
-function loadDataFormCookie() {
-    updateSetCookieInfo();
-    
-    var cookie_names = [ 'company_name', 'company_email', 'company_addr', 'company_web', 'company_tel' ];
-
+// fill the data stored onto the form
+function fillData() {
     for (var i = 0; i < 5; i++) {
-        document.getElementById(cookie_names[i]).value = getCookie(cookie_names[i]);
+        document.getElementById(keys[i]).value = store.getItem(keys[i]);
     }
+    M.updateTextFields();
+}
+
+// completely clears the local storage
+function clearData() {
+    store.clear();
+    fillData();
 }
