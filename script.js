@@ -5,9 +5,6 @@
 // keeps track of id of the item being generated
 var itemId = 0;
 
-// flag to check whether user has uploaded company logo or not
-var hasLogo = false;
-
 // wrapper function that adds a new item to the items division
 function addItem() {
     itemId++;
@@ -64,10 +61,8 @@ window.onload = function() {
                 fileDisplayArea.appendChild(img);
             }
 
-            hasLogo = true;
             reader.readAsDataURL(file);	
         } else {
-            hasLogo = false;
             fileDisplayArea.innerHTML = "File not supported!"
         }
     });
@@ -107,9 +102,11 @@ function generateHeader(doc) {
     var company_tel = document.getElementById('company_tel').value;
 
     var x = 15;
-    if (hasLogo) {
+    if (document.getElementById('logo_display').innerHTML != '') {
         var imageData = document.getElementById('logo_display').firstChild;
-        doc.addImage(imageData, 'jpg', x, 10, 35, 35, 'company_logo', 'NONE', 0);
+        var imageText = document.getElementById('logo_display').innerHTML;
+        var imageFormat = imageText.substring('<img src="data:image/'.length, imageText.search(";base64"));
+        doc.addImage(imageData, imageFormat, x, 10, 35, 35, 'company_logo', 'NONE', 0);
         x += 45
     }
 
@@ -157,8 +154,6 @@ function generatePurchaseList(doc) {
     var items_div = document.getElementById('items');
     var items = [];
     var total_cost = 0;
-
-    debugger;
 
     for (var i = 0; i < items_div.children.length; i++) {
         var item = new Object();
@@ -208,6 +203,7 @@ function saveData() {
     for (var i = 0; i < 5; i++) {
         store.setItem(keys[i], document.getElementById(keys[i]).value);
     }
+    store.setItem('logo_display', document.getElementById('logo_display').innerHTML);
 }
 
 // fill the data stored onto the form
@@ -215,6 +211,7 @@ function fillData() {
     for (var i = 0; i < 5; i++) {
         document.getElementById(keys[i]).value = store.getItem(keys[i]);
     }
+    document.getElementById('logo_display').innerHTML = store.getItem('logo_display');
     M.updateTextFields();
 }
 
