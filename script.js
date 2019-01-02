@@ -81,7 +81,7 @@ function uploadImage() {
  * Methods to generate the invoice pdf
  **************************************************************************************************/
 
- // driver function for creating the invoice pdf
+// driver function for creating the invoice pdf
 function generatePDF(save_doc) {
     var doc = new jsPDF();
 
@@ -101,49 +101,85 @@ function generateHeader(doc) {
     var company_web = document.getElementById('company_web').value;
     var company_tel = document.getElementById('company_tel').value;
 
-    var x = 15;
+    var x_pos = 15;
+    var y_pos = 10;
+
     if (document.getElementById('logo_display').innerHTML != '') {
         var imageData = document.getElementById('logo_display').firstChild;
         var imageText = document.getElementById('logo_display').innerHTML;
         var imageFormat = imageText.substring('<img src="data:image/'.length, imageText.search(";base64"));
-        doc.addImage(imageData, imageFormat, x, 10, 35, 35, 'company_logo', 'NONE', 0);
-        x += 45
+        doc.addImage(imageData, imageFormat, x_pos, y_pos, 35, 35, 'company_logo', 'NONE', 0);
+        x_pos += 40;
     }
 
     doc.setFontSize(15);
-    doc.setFontStyle('bold');
+    doc.setFont('helvetica', 'bold');
     
-    doc.text(x, 17, company_name);
+    y_pos += 7;
+    doc.text(x_pos, y_pos, company_name);
 
     doc.setFontSize(13);
-    doc.setFontStyle('none');
+    doc.setFont('helvetica', 'normal');
     
-    doc.text(x, 22, company_email);
-    doc.text(x, 27, company_addr);
-    doc.text(x, 32, company_web);
-    doc.text(x, 37, company_tel);
+    // add only entered details into pdf
+    if (company_email) { 
+        y_pos += 5;
+        doc.text(x_pos, y_pos, company_email);
+    }
 
-    doc.line(10, 47, 200, 45);
+    if (company_addr) { 
+        y_pos += 5;
+        doc.text(x_pos, y_pos, company_addr);
+    }
+    
+    if (company_web) { 
+        y_pos += 5;
+        doc.text(x_pos, y_pos, company_web);
+    }
+    
+    if (company_tel) { 
+        y_pos += 5;
+        doc.text(x_pos, y_pos, company_tel);
+    }
+
+    // line to mark the end of header
+    y_pos = 47;
+    doc.line(10, y_pos, 200, 45);
 }
 
 function generateInvoice(doc) {
     doc.setFontSize(15);
-    doc.setFontStyle('bold');
+    doc.setFont('helvetica', 'bold');
 
     doc.text(85, 55, 'BILL RECEIPT')
     
     client_name = document.getElementById('client_name').value;
     client_tel = document.getElementById('client_tel').value;
+    client_place = document.getElementById('client_place').value;
     invoice_date = document.getElementById('invoice_date').value;
     invoice_msg = document.getElementById('invoice_msg').value;
 
     doc.setFontSize(13);
-    doc.setFontStyle('none');
+    doc.setFont('helvetica', 'normal');
 
-    doc.text(15, 64, 'To  : ' + client_name);
-    doc.text(15, 69, 'Date: ' + invoice_date);
+    var y_pos = 59;
 
-    doc.text(15, 77, '     ' + invoice_msg)
+    if (client_name) {
+        y_pos += 5;
+        doc.text(15, y_pos, 'To    : ' + client_name);
+    }
+
+    if (invoice_date) {
+        y_pos += 5;
+        doc.text(15, y_pos, 'Date : ' + invoice_date);
+    }
+
+    if (client_place) {
+        y_pos += 5;
+        doc.text(15, y_pos, 'Place: ' + client_place);
+    }
+
+    doc.text(15, 82, '     ' + invoice_msg);
 
     generatePurchaseList(doc);
 }
@@ -187,7 +223,7 @@ function generatePurchaseList(doc) {
         }
     }
 
-    doc.table(55, 90, items, headers, config);
+    doc.table(55, 100, items, headers, config);
 }
 
 
