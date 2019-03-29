@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Invoice Generator</title>
+        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">	
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCyBdwJeaD2Vm17T8BRXrumNoOk3Z8NucE",
+                authDomain: "invoice-generator-2ad43.firebaseapp.com",
+                databaseURL: "https://invoice-generator-2ad43.firebaseio.com",
+                projectId: "invoice-generator-2ad43",
+                storageBucket: "invoice-generator-2ad43.appspot.com",
+                messagingSenderId: "862076289309"
+            };
+            firebase.initializeApp(config);
+        </script>
+    </head>
+    
+    <body>
+        <nav>
+            <div class="nav-wrapper grey darken-4">
+                <a href="#" class="brand-logo center" style="padding-left: 20px;">Invoice Generator</a>
+            </div>
+        </nav>
+             
+        <div style="padding: 10px; position: fixed;">
+            <a href="new_invoice.html" class="btn-floating btn-large waves-effect waves-light black">
+                <i class="material-icons">arrow_back</i>
+            </a>
+        </div>
+
+        <div id="invoice_form" class="card" style="padding: 25px; border-radius: 10px;">
+            <table class="striped centered">
+                <thead>
+                    <tr>
+                        <th>Sno</th>
+                        <th>Client Name</th>
+                        <th>Purchase Date</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody id="user_data">
+                </tbody>
+            </table>
+        </div>
+    </body>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+    <script src="../scripts/generate.js"></script>
+    <script src="../scripts/history.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        var email = null;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                retrieveFromFirestore();
+            } else {
+                window.location = "../index.html";
+            }
+        });
+    </script>
+</html>

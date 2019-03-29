@@ -1,0 +1,21 @@
+features:
+0. Generate invoice as PDF*
+1. Dynamically add/delete items*
+2. Auto-calculate expenses*
+4. remember <company> details using localStorage
+5. materialized UI
+6. Preview PDF before downloading
+7. Email and Google login
+
+others:
+1. commenting code <js> +partially done+
+
+to add:
+0. due, paid, tax
+1. prettier pdf(colors, positioning, omitting unentered details +done+)
+2. make purchase list compact
+....
+100. <xls, xml, csv> parsing to generate multiple invoices at a go
+501. online storage
+1000. directly send via mail or whatsapp
+9999. form builder +vision :p+

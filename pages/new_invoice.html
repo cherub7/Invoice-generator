@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Invoice Generator</title>
+        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">	
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCyBdwJeaD2Vm17T8BRXrumNoOk3Z8NucE",
+                authDomain: "invoice-generator-2ad43.firebaseapp.com",
+                databaseURL: "https://invoice-generator-2ad43.firebaseio.com",
+                projectId: "invoice-generator-2ad43",
+                storageBucket: "invoice-generator-2ad43.appspot.com",
+                messagingSenderId: "862076289309"
+            };
+            firebase.initializeApp(config);
+        </script>
+    </head>
+    
+    <body>
+        <nav>
+            <div class="nav-wrapper grey darken-4">
+                <a href="#" class="brand-logo center" style="padding-left: 20px;">Invoice Generator</a>
+            </div>
+        </nav>
+
+        <!-- side nav content -->
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+                    
+                    <div class="background" >
+                        <img src="../images/default_user_bg.jpg">
+                    </div>
+                    
+                    <img id="user_image" class="circle" src="../images/default_user_image.png"></img>
+                    <div id="user_name" class="white-text name"></div>
+                    <div id="user_email" class="white-text email"></div>
+                </div>
+            </li>
+            
+            <li><a class="subheader">Actions</a></li>
+            
+            <li><a href="new_invoice.html"><i class="fas fa-file-invoice fa-lg"></i></i>New Invoice</a></li>
+            <li><a href="#"><i class="fas fa-file-import fa-lg"></i>Import Data</a></li>
+            <li><a href="history.html"><i class="fas fa-history fa-lg"></i></i>History</a></li>
+            <li><a href="#"><i class="fas fa-chart-bar fa-lg"></i></i>Analytics</a></li>
+
+            <li><div class="divider"></div></li>
+            
+            <li><a href="javascript: firebase.auth().signOut();"><i class="fas fa-sign-out-alt fa-lg"></i>Logout</a></li>
+        </ul>
+             
+        <div style="padding: 10px; position: fixed;">
+            <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating btn-large waves-effect waves-light black">
+            <i class="material-icons">menu</i>
+            </a>
+        </div>
+
+        <div id="invoice_form">
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">1. Company details</span>
+
+                <div class="text-center" id="logo_display"></div>
+                <input type="file" id="company_logo" style="display: none;">
+                <a class="waves-effect waves-light btn-small black" accept="image/png, image/jpeg" onclick="uploadImage()"><i class="material-icons left">camera_alt</i>Upload logo</a> 
+                
+                <div>
+                    <center>
+                    <div class="input-field invoice_element">
+                        <input type="text" id="company_name">
+                        <label class="active" for="company_name">Name</label>
+                    </div>
+                    <div class="input-field invoice_element">
+                        <input type="email" id="company_email">
+                        <label class="active" for="company_email">Email</label>
+                    </div>
+                    <div class="input-field invoice_element">
+                        <input type="text" id="company_addr">
+                        <label class="active" for="company_addr">Address</label>
+                    </div>
+                    <div class="input-field invoice_element">
+                        <input type="url" id="company_web">
+                        <label class="active" for="company_web">Website URL</label>
+                    </div>
+                    <div class="input-field invoice_element">
+                        <input type="tel" id="company_tel">
+                        <label class="active" for="company_tel">Contact number</label>
+                    </div>
+
+                    <div style="height: 50px;">
+                        <div style="float: left; width: 50%;">
+                            <a class="waves-effect waves-light btn-small black" onclick="saveData()"><i class="material-icons left">save</i>save details</a> 
+                        </div>
+                        <div style="float: right; width: 50%;">
+                            <a class="waves-effect waves-light btn-small black" onclick="clearData()"><i class="material-icons left">delete</i>clear details</a>
+                        </div>
+                    </div>
+                    </center>
+                </div>
+            </div>
+            
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">2. Client details</span>
+                <center>
+                <div class="input-field invoice_element">
+                    <input type="text" id="client_name">
+                    <label for="client_name">Name</label>
+                </div>
+                <div class="input-field invoice_element">
+                    <input type="tel" id="client_tel">
+                    <label for="client_tel">Contact number</label>
+                </div>
+                <div class="input-field invoice_element">
+                    <input type="text" id="client_place">
+                    <label for="client_place">Place</label>
+                </div>
+                </center>
+            </div>
+
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">3. Invoice content</span>
+                <center>
+                <div class="input-field  invoice_element">
+                    <input type="text" class="datepicker" id="invoice_date">
+                    <label for="invoice_msg">Date</label>
+                </div>
+
+                <div class="input-field invoice_element">
+                    <textarea class="materialize-textarea" id="invoice_msg"></textarea>
+                    <label for="invoice_msg">Invoice Message</label>
+                </div>
+                </center>
+            </div>
+
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">4. Purchases</span>
+                <div id="items"></div>
+                <a class="btn-floating btn-medium waves-effect waves-light black" onclick="addItem()"><i class="material-icons">add</i></a>
+            </div>
+
+            <div class="card" style="padding: 25px; border-radius: 10px;">
+                <span class="card-title">5. Preview and Generate Invoice</span>
+                
+                <div style="padding: 50px;">
+                    <a class="waves-effect waves-light btn-large black" onclick="previewInvoice()"><i class="material-icons left">visibility</i>Preview Invoice</a>
+                </div>
+                
+                <div style="padding: 50px;">
+                    <a class="waves-effect waves-light btn-large black" onclick="generateInvoice()"><i class="material-icons left">picture_as_pdf</i>Generate Invoice</a>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+    <script src="../scripts/new_invoice.js"></script>
+    <script src="../scripts/generate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, {});
+        });
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                if (user.photoURL) {
+                    document.getElementById("user_image").src = user.photoURL;
+                }
+                document.getElementById("user_name").innerText = user.displayName;
+                document.getElementById("user_email").innerText = user.email;
+            } else {
+                window.location = "../index.html";
+            }
+        });
+    </script>
+</html>
