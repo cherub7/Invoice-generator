@@ -100,6 +100,14 @@ function getPurchasesData() {
         items.push(item);
     }
 
+    var total_item =  {
+        'Name': 'Total',
+        'Qty': '',
+        'Cost': total_cost
+    };
+
+    items.push(total_item);
+
     data['items'] = items;
 
     return data;

@@ -118,23 +118,22 @@ function generateInvoice(doc, data) {
 
 // function to generate the purchases table in the invoice
 function generatePurchaseList(doc, data) {
-    var headers = [ "Name", "Qty", "Cost" ];
+    var purchase_list = data['purchase_list']['items'];
 
-    var items = data['purchase_list']['items'];
-
-    if (items.length == 0) {
+    if (purchase_list.length == 1) {
         return;
     }
 
-    var config = {
-        'autoSize': true,
-        'margins': {
-            'left': 20,
-            'top': 10,
-            'bottom': 10,
-            'width': 40
-        }
+    var items = [];
+    for (var i = 0; i < purchase_list.length; i++) {
+        item = purchase_list[i];
+        items.push([item.Name, item.Qty, item.Cost]);
     }
 
-    doc.table(55, 100, items, headers, config);
+    doc.autoTable({
+        startY: 120,
+        halign: 'center',
+        head: [[ "Name", "Qty", "Cost" ]],
+        body: items
+    });
 }
