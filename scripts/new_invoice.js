@@ -95,15 +95,17 @@ function getPurchasesData() {
         item.Name = items_div.children[i].children[0].children[0].value;
         item.Qty = items_div.children[i].children[0].children[1].value;
         item.Cost = items_div.children[i].children[0].children[2].value;
+        item.Total = item.Qty * item.Cost;
 
-        total_cost += item.Qty * item.Cost;
+        total_cost += item.Total;
         items.push(item);
     }
 
     var total_item =  {
-        'Name': 'Total',
+        'Name': '',
         'Qty': '',
-        'Cost': total_cost
+        'Cost': '',
+        'Total': 'INR ' + total_cost
     };
 
     items.push(total_item);

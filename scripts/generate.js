@@ -127,13 +127,13 @@ function generatePurchaseList(doc, data) {
     var items = [];
     for (var i = 0; i < purchase_list.length; i++) {
         item = purchase_list[i];
-        items.push([item.Name, item.Qty, item.Cost]);
+        items.push([item.Name, item.Qty, item.Cost, item.Total]);
     }
 
     doc.autoTable({
         startY: 120,
         halign: 'center',
-        head: [[ "Name", "Qty", "Cost" ]],
+        head: [[ "Name", "Qty", "Cost", "Total"]],
         body: items
     });
 }
