@@ -43,10 +43,10 @@ function previewInvoice(doc_id) {
             var data = JSON.parse(doc.data().data);
             generatePDF(data, false, false);
         } else {
-            alert("Oops! No such document!");
+            alert("No such document exists.");
         }
     }).catch(function(error) {
-        console.log("Error getting document :(", error);
+        alert("Error getting document.", error);
     });
 }
 
@@ -58,9 +58,9 @@ function downloadInvoice(doc_id) {
             var data = JSON.parse(doc.data().data);
             generatePDF(data, true, false);
         } else {
-            alert("Oops! No such document!");
+            alert("No such document exists.");
         }
     }).catch(function(error) {
-        console.log("Error getting document :(", error);
+        alert("Error getting document.", error);
     });
 }

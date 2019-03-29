@@ -6,8 +6,6 @@
 function generatePDF(data, save_to_device, save_to_cloud) {
     var doc = new jsPDF();
 
-    console.log(data);
-
     generateHeader(doc, data);
     generateInvoice(doc, data);
 
@@ -34,7 +32,7 @@ function generateHeader(doc, data) {
     var x_pos = 15;
     var y_pos = 10;
 
-    if (data['logo_display'] != '') {
+    if (data.logo_display) {
         var src = data['logo_display'];
 
         var element = document.createElement('div');

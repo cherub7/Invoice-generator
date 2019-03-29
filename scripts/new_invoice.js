@@ -136,7 +136,7 @@ function previewInvoice() {
     generatePDF(data, false, false);
 }
 
-function generateInvoice() {
+function downloadInvoice() {
     var data =  getInvoiceData();
     generatePDF(data, true, true);
 }
@@ -187,9 +187,8 @@ function sendToFirestore(data) {
         time: firebase.firestore.Timestamp.fromDate(new Date())
     })
     .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
     })
     .catch(function(error) {
-        console.error("Error adding document: ", error);
+        alert("Error adding document to cloud.");
     });
 }
