@@ -105,7 +105,7 @@ function getPurchasesData() {
         'Name': '',
         'Qty': '',
         'Cost': '',
-        'Total': 'INR ' + total_cost
+        'Total': total_cost
     };
 
     items.push(total_item);
@@ -200,5 +200,13 @@ function sendToFirestore(data) {
     })
     .catch(function(error) {
         alert("Error adding document to cloud.");
+    });
+}
+
+function logOutUser() {
+    firebase.auth().signOut().then(function() {
+        document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://cherub7.github.io/Invoice-generator/"
+    }).catch(function(error) {
+        console.log(error);
     });
 }
