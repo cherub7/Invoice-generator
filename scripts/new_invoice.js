@@ -34,7 +34,7 @@ function removeElement(elementId) {
 
 
 /**************************************************************************************************
- * Methods to handle the company logo upload
+ * Methods to handle the company logo upload and import invoice
  **************************************************************************************************/
 
 window.onload = function() {
@@ -66,6 +66,27 @@ window.onload = function() {
         } else {
             fileDisplayArea.innerHTML = "File not supported!"
         }
+    });
+
+    var fileInput2 = document.getElementById('import_btn');
+    // function to check when an input file is loaded
+    fileInput2.addEventListener('change', function(e) {
+        var file = fileInput2.files[0];
+
+        if (file.type.match(/text.*/)) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                data = JSON.parse(reader.result);
+                // download or fill invoice
+                console.log(data);
+                fillInvoice(data);
+            }
+        } else {
+            alert("Unable to import data from selected file!");
+        }
+
+        reader.readAsText(file);
     });
 
     calendar = M.Datepicker.init(document.getElementById('invoice_date'), {});
@@ -182,7 +203,7 @@ function clearData() {
 }
 
 /**************************************************************************************************
- * Firebase store methods
+ * Firebase methods
  **************************************************************************************************/
 
 var db = firebase.firestore();

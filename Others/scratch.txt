@@ -6,16 +6,18 @@ features:
 5. materialized UI
 6. Preview PDF before downloading
 7. Email and Google login
-
-others:
-1. commenting code <js> +partially done+
+8. Online cloud storage for CRD(Create, Read and Delete) operation
+9. History list of all PDFs generated
 
 to add:
-0. due, paid, tax
-1. prettier pdf(colors, positioning, omitting unentered details +done+)
-2. make purchase list compact
+0. export and import files(txt for now)
+2. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
+3. make purchase list compact
+4. use user id instead of email to fetch docs
 ....
+10. encrypt data on cloud
 100. <xls, xml, csv> parsing to generate multiple invoices at a go
-501. online storage
+500. encrypted export/import
 1000. directly send via mail or whatsapp
 9999. form builder +vision :p+
+999999. analytics
