@@ -8,12 +8,12 @@ features:
 7. Email and Google login
 8. Online cloud storage for CRD(Create, Read and Delete) operation
 9. History list of all PDFs generated
+10. export and import files(txt for now)
 
 to add:
-0. export and import files(txt for now)
-2. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
-3. make purchase list compact
-4. use user id instead of email to fetch docs
+1. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
+2. make purchase list compact
+3. use user id instead of email to fetch docs
 ....
 10. encrypt data on cloud
 100. <xls, xml, csv> parsing to generate multiple invoices at a go
