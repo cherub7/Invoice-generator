@@ -25,6 +25,10 @@ function retrieveFromFirestore() {
             history_entry.innerHTML = entry_data;
             document.getElementById('user_data').append(history_entry);
         });
+
+        // removing loading animation
+        var element = document.getElementById('preloader');
+        element.parentNode.removeChild(element);
     })
     .catch(function(error) {
         console.log(error);

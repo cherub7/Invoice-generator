@@ -49,6 +49,7 @@
             
             <li><a class="subheader">Actions</a></li>
             
+            <li><a href="home.html"><i class="fas fa-home fa-lg"></i></i>Home</a></li>
             <li><a href="new_invoice.html"><i class="fas fa-file-invoice fa-lg"></i></i>New Invoice</a></li>
             <li><a href="javascript:importInvoice('import_btn')"><input type="file" id="import_btn" style="display: none"><i class="fas fa-file-import fa-lg"></i>Import Data</input></a></li>
             <li><a href="history.html"><i class="fas fa-history fa-lg"></i></i>History</a></li>
@@ -189,5 +190,13 @@
                 window.location = "../index.html";
             }
         });
+
+        function logOutUser() {
+            firebase.auth().signOut().then(function() {
+                document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://cherub7.github.io/Invoice-generator/"
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
     </script>
 </html>

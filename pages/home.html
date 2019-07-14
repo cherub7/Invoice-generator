@@ -31,7 +31,7 @@
                 <a href="#" class="brand-logo center" style="padding-left: 20px;">Invoice Generator</a>
             </div>
         </nav>
-             
+
         <!-- side nav content -->
         <ul id="slide-out" class="sidenav">
             <li>
@@ -49,57 +49,90 @@
             
             <li><a class="subheader">Actions</a></li>
             
-            <li><a href="home.html"><i class="fas fa-home fa-lg"></i></i>Home</a></li>
-            <li><a href="new_invoice.html"><i class="fas fa-file-invoice fa-lg"></i></i>New Invoice</a></li>
-            <li><a href="history.html"><i class="fas fa-history fa-lg"></i></i>History</a></li>
-            <li><a href="#"><i class="fas fa-chart-bar fa-lg"></i></i>Analytics</a></li>
+            <li><a href="home.html"><i class="fas fa-home fa-lg"></i>Home</a></li>
+            <li><a href="new_invoice.html"><i class="fas fa-file-invoice fa-lg"></i>New Invoice</a></li>
+            <li><a href="history.html"><i class="fas fa-history fa-lg"></i>History</a></li>
+            <li><a href="#"><i class="fas fa-chart-bar fa-lg"></i>Analytics</a></li>
 
             <li><div class="divider"></div></li>
             
             <li><a href="javascript:logOutUser();"><i class="fas fa-sign-out-alt fa-lg"></i>Logout</a></li>
         </ul>
-
+             
         <div style="padding: 10px; position: fixed;">
             <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating btn-large waves-effect waves-light black">
             <i class="material-icons">menu</i>
             </a>
         </div>
 
-        <div id="invoice_form" class="card" style="padding: 25px; border-radius: 10px;">
-            <table class="striped centered">
-                <thead>
-                    <tr>
-                        <th>Client Name</th>
-                        <th>Client Location</th>
-                        <th>Purchase Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="user_data">
-                </tbody>
-            </table>
+        <!-- Dashboard content here! -->
+        <div id="invoice_form" class="row">
 
-            <div id="preloader" class="preloader-wrapper big active">
-                <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
+                
+            <div class="col s12">
+                <div class="card white">
+                    <div class="card-image" style="background: #536976;  /* fallback for old browsers */
+                    background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+                    background: linear-gradient(to right, #292E49, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                    height: 100px;">
                     </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
+                    <div class="card-content black-text">
+                        <span class="card-title">Welcome back <b id="user_greeting"></b>!</span>
+                        <p>Happy seeing you again! Let's get started with generating invoices. Click on the button below to open new invoice generation page (or) you can click on <b>&#8801</b> button on the left to open menu and navigate.</p>
                     </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+                    <div class="card-action">
+                        <a href="new_invoice.html">Create a new Invoice</a>
                     </div>
                 </div>
             </div>
+                         
+
+            <div class="col s8">
+                <div class="card white">
+                    <div class="card-image" style="background: #b92b27;  /* fallback for old browsers */
+                    background: -webkit-linear-gradient(to right, #1565C0, #b92b27);  /* Chrome 10-25, Safari 5.1-6 */
+                    background: linear-gradient(to right, #1565C0, #b92b27); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                    height: 50px;">
+                    </div>
+                    <div class="card-content black-text">
+                        <span class="card-title">History</span>
+                        <p>Have a look at your previous generated invoices via history. You can preview, download, export or delete your previous invoices from the history page.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="history.html">Open History</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s4">
+                <div class="card white">
+                    <div class="card-image" style="background: #FF0099;  /* fallback for old browsers */
+                    background: -webkit-linear-gradient(to right, #493240, #FF0099);  /* Chrome 10-25, Safari 5.1-6 */
+                    background: linear-gradient(to right, #493240, #FF0099); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                    height: 50px;">
+                    </div>
+                    <div class="card-content grey-text">
+                        <span class="card-title">Analytics</span>
+                        <p>Coming soon!</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Open Analytics</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12">
+                <div class="card white">
+                    <div class="card-content black-text">
+                        <p>Made with &#x1F497 by <b>Cherubim Palukury</b></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </body>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
-    <script src="../scripts/auto_table.js"></script>
-    <script src="../scripts/generate.js"></script>
-    <script src="../scripts/history.js"></script>
-    <script src="../scripts/port.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
@@ -110,11 +143,11 @@
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                retrieveFromFirestore();
                 if (user.photoURL) {
                     document.getElementById("user_image").src = user.photoURL;
                 }
                 document.getElementById("user_name").innerText = user.displayName;
+                document.getElementById("user_greeting").innerText = user.displayName;
                 document.getElementById("user_email").innerText = user.email;
             } else {
                 window.location = "../index.html";

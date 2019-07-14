@@ -9,12 +9,12 @@ var itemId = 0;
 function addItem() {
     itemId++;
     var html = '<div class="row">' +
-                '<div class="col s2"><input type="text" placeholder="Item name"/></div>' + 
+                '<div class="col s3"><input type="text" placeholder="Item name"/></div>' + 
                 '<div class="col s2"><input type="number" placeholder="Item count"/></div>' + 
                 '<div class="col s2"><input type="number" placeholder="Item cost"/></div>' +
                 '<div class="col s2"><input type="number" min="0" max="100" placeholder="Tax %"/></div>' +
                 '<div class="col s2"><input type="number" min="0" max="100" placeholder="Discount %"/></div>' +
-                '<div class="col s2"><a class="btn-floating btn-medium waves-effect waves-light black" onclick="javascript:removeElement(\'item-' + 
+                '<div class="col s1"><a class="btn-floating btn-medium waves-effect waves-light black" onclick="javascript:removeElement(\'item-' + 
                 itemId + '\'); return false;"><i class="material-icons">remove</i>Remove</a></div></div>';
     addElement('items', 'p', 'item-' + itemId, html);
 }
@@ -228,13 +228,5 @@ function sendToFirestore(data) {
     })
     .catch(function(error) {
         alert("Error adding document to cloud.");
-    });
-}
-
-function logOutUser() {
-    firebase.auth().signOut().then(function() {
-        document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://cherub7.github.io/Invoice-generator/"
-    }).catch(function(error) {
-        console.log(error);
     });
 }
