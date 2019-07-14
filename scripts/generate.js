@@ -116,6 +116,10 @@ function generateInvoice(doc, data) {
     generatePurchaseList(doc, data);
 }
 
+function financial(x) {
+    return Number.parseFloat(x).toFixed(2);
+}
+
 // function to generate the purchases table in the invoice
 function generatePurchaseList(doc, data) {
     var purchase_list = data['purchase_list']['items'];
@@ -125,15 +129,24 @@ function generatePurchaseList(doc, data) {
     }
 
     var items = [];
-    for (var i = 0; i < purchase_list.length; i++) {
+    for (var i = 0; i < purchase_list.length - 1; i++) {
         item = purchase_list[i];
-        items.push([item.Name, item.Qty, item.Cost, item.Total]);
+        items.push([item.Name, 
+                    item.Qty, 
+                    item.Cost + ' (+' + financial(item.Qty * item.Cost) + ')', 
+                    item.Tax + '% (+'+ financial((item.Tax / 100.0) * (item.Qty * item.Cost)) +')', 
+                    item.Discount + '% (-'+ financial((item.Discount / 100.0) * (item.Qty * item.Cost)) +')', 
+                    financial(item.Total)]);
     }
+    // last item i.e. total row
+    item = purchase_list[purchase_list.length - 1];
+    items.push([item.Name, item.Qty, item.Cost, item.Tax, item.Discount, financial(item.Total)]);
+
 
     doc.autoTable({
         startY: 120,
         halign: 'center',
-        head: [[ "Name", "Qty", "Cost", "Total"]],
+        head: [[ "Name", "Qty", "Cost", "Tax %", "Discount %", "Total"]],
         body: items
     });
 }

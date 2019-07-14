@@ -1,7 +1,7 @@
 features:
 0. Generate invoice as PDF*
-1. Dynamically add/delete items*
-2. Auto-calculate expenses*
+1. Dynamically add/delete items
+2. Auto-calculate expenses
 4. remember <company> details using localStorage
 5. materialized UI
 6. Preview PDF before downloading
@@ -11,13 +11,14 @@ features:
 10. export and import files(txt for now)
 
 to add:
-1. auto calculate taxes/discounts in the bill
-2. welcome dashboard (new homepage for user)
-3. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
-4. use user id instead of email to fetch docs
-5. Generate multiple invoices from xls/xml files
-6. break up scripts into meaningful and self contained files
-7. add About section
+1. welcome dashboard (new homepage for user)
+2. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
+3. use user id instead of email to fetch docs
+4. Generate multiple invoices from xls/xml files
+5. break up scripts into meaningful and self contained files
+6. add About section
+7. display message while fetching invoices from firebase
+8. make preview, export and generate buttons float to right
 ....
 10. encrypt data on cloud and on imports/exports
 50. download all the dependencies into the project

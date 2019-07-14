@@ -8,12 +8,14 @@ var itemId = 0;
 // wrapper function that adds a new item to the items division
 function addItem() {
     itemId++;
-    var html = '<div class="card purchase_item" style="padding: 25px; border-radius: 10px;">' + 
-                '<input type="text" placeholder="Item name"/>' + 
-                '<input type="number" placeholder="Item count"/>' + 
-                '<input type="number" placeholder="Item cost"/>' +
-                '<a class="btn-floating btn-medium waves-effect waves-light black" onclick="javascript:removeElement(\'item-' + 
-                itemId + '\'); return false;"><i class="material-icons">remove</i>Remove</a></div>';
+    var html = '<div class="row">' +
+                '<div class="col s2"><input type="text" placeholder="Item name"/></div>' + 
+                '<div class="col s2"><input type="number" placeholder="Item count"/></div>' + 
+                '<div class="col s2"><input type="number" placeholder="Item cost"/></div>' +
+                '<div class="col s2"><input type="number" min="0" max="100" placeholder="Tax %"/></div>' +
+                '<div class="col s2"><input type="number" min="0" max="100" placeholder="Discount %"/></div>' +
+                '<div class="col s2"><a class="btn-floating btn-medium waves-effect waves-light black" onclick="javascript:removeElement(\'item-' + 
+                itemId + '\'); return false;"><i class="material-icons">remove</i>Remove</a></div></div>';
     addElement('items', 'p', 'item-' + itemId, html);
 }
 
@@ -113,10 +115,13 @@ function getPurchasesData() {
     for (var i = 0; i < items_div.children.length; i++) {
         var item = new Object();
 
-        item.Name = items_div.children[i].children[0].children[0].value;
-        item.Qty = items_div.children[i].children[0].children[1].value;
-        item.Cost = items_div.children[i].children[0].children[2].value;
-        item.Total = item.Qty * item.Cost;
+        // items div -> p -> row div -> col div -> input element
+        item.Name = items_div.children[i].children[0].children[0].children[0].value;
+        item.Qty = items_div.children[i].children[0].children[1].children[0].value;
+        item.Cost = items_div.children[i].children[0].children[2].children[0].value;
+        item.Tax = items_div.children[i].children[0].children[3].children[0].value;
+        item.Discount = items_div.children[i].children[0].children[4].children[0].value;
+        item.Total = (item.Qty * item.Cost) * (1 + ((item.Tax - item.Discount) / 100.0));
 
         total_cost += item.Total;
         items.push(item);
@@ -126,6 +131,8 @@ function getPurchasesData() {
         'Name': '',
         'Qty': '',
         'Cost': '',
+        'Tax': '',
+        'Discount': '',
         'Total': total_cost
     };
 

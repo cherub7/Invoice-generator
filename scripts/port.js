@@ -51,9 +51,12 @@ function fillPurchaseList(data) {
         addItem();
         var item_id = 'item-' + i;
 
-        document.getElementById(item_id).firstChild.childNodes[0].value = data[i-1].Name;
-        document.getElementById(item_id).firstChild.childNodes[1].value = data[i-1].Qty;
-        document.getElementById(item_id).firstChild.childNodes[2].value = data[i-1].Cost;
+        // p element -> row div - > col div -> input element 
+        document.getElementById(item_id).firstChild.childNodes[0].firstChild.value = data[i-1].Name;
+        document.getElementById(item_id).firstChild.childNodes[1].firstChild.value = data[i-1].Qty;
+        document.getElementById(item_id).firstChild.childNodes[2].firstChild.value = data[i-1].Cost;
+        document.getElementById(item_id).firstChild.childNodes[3].firstChild.value = data[i-1].Tax;
+        document.getElementById(item_id).firstChild.childNodes[4].firstChild.value = data[i-1].Discount;
     }
 
     M.updateTextFields();
