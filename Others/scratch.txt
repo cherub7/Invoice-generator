@@ -5,19 +5,26 @@ features:
 4. remember <company> details using localStorage
 5. materialized UI
 6. Preview PDF before downloading
-7. Email and Google login
+7. Google login
 8. Online cloud storage for CRD(Create, Read and Delete) operation
 9. History list of all PDFs generated
 10. export and import files(txt for now)
 
 to add:
-1. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
-2. make purchase list compact
-3. use user id instead of email to fetch docs
+1. auto calculate taxes/discounts in the bill
+2. welcome dashboard (new homepage for user)
+3. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
+4. use user id instead of email to fetch docs
+5. Generate multiple invoices from xls/xml files
+6. break up scripts into meaningful and self contained files
+7. add About section
 ....
-10. encrypt data on cloud
+10. encrypt data on cloud and on imports/exports
+50. download all the dependencies into the project
 100. <xls, xml, csv> parsing to generate multiple invoices at a go
 500. encrypted export/import
 1000. directly send via mail or whatsapp
+5000. options to paginate, sort and query the History page
 9999. form builder +vision :p+
+99999. add DB for the products that user can add
 999999. analytics
