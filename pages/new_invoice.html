@@ -195,7 +195,7 @@
             firebase.auth().signOut().then(function() {
                 document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://cherub7.github.io/Invoice-generator/"
             }).catch(function(error) {
-                console.log(error);
+                alert(error);
             });
         }
     </script>

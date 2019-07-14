@@ -81,7 +81,6 @@ window.onload = function() {
             reader.onload = function(e) {
                 data = JSON.parse(reader.result);
                 // download or fill invoice
-                console.log(data);
                 fillInvoice(data);
             }
         } else {
@@ -225,6 +224,7 @@ function sendToFirestore(data) {
         time: firebase.firestore.Timestamp.fromDate(new Date())
     })
     .then(function(docRef) {
+        aleralert("Successfully added document to cloud.");
     })
     .catch(function(error) {
         alert("Error adding document to cloud.");
