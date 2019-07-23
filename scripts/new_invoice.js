@@ -224,7 +224,7 @@ function sendToFirestore(data) {
         time: firebase.firestore.Timestamp.fromDate(new Date())
     })
     .then(function(docRef) {
-        alert("Successfully added document to cloud.");
+        aleralert("Successfully added document to cloud.");
     })
     .catch(function(error) {
         alert("Error adding document to cloud.");

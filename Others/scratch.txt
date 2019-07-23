@@ -17,6 +17,8 @@ to add:
 3. use user id instead of email to fetch docs
 4. Generate multiple invoices from xls/xml files
 5. break up scripts into meaningful and self contained files
+6. inventory of items
+7. drop down to add items in purchase list
 ....
 10. encrypt data on cloud and on imports/exports
 50. download all the dependencies into the project
@@ -25,5 +27,9 @@ to add:
 1000. directly send via mail or whatsapp
 5000. options to paginate, sort and query the History page
 9999. form builder +vision :p+
+50000. bar code scanner(just like air ticket)
 99999. add DB for the products that user can add
 999999. analytics
+
+limitations:
+1. cannot load data onto firebase if data size >= 1Mb
