@@ -31,7 +31,6 @@ function retrieveFromFirestore() {
         element.parentNode.removeChild(element);
     })
     .catch(function(error) {
-        console.log(error);
         alert("Error getting documents :(");
     });
 }

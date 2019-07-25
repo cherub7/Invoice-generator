@@ -224,7 +224,7 @@ function sendToFirestore(data) {
         time: firebase.firestore.Timestamp.fromDate(new Date())
     })
     .then(function(docRef) {
-        aleralert("Successfully added document to cloud.");
+        alert("Successfully added document to cloud. You can access all your generated invoices from the history page.");
     })
     .catch(function(error) {
         alert("Error adding document to cloud.");
