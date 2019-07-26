@@ -8,5 +8,6 @@ Features:
 1. Generates invoices
 2. Auto-saves them on the cloud
 3. Export/Import invoices
+4. Maintain inventory of your items
 
 More features in development
