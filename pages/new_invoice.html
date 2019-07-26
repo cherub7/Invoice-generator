@@ -26,11 +26,6 @@
     </head>
     
     <body>
-        <nav>
-            <div class="nav-wrapper grey darken-4">
-                <a href="#" class="brand-logo center" style="padding-left: 20px;">Invoice Generator</a>
-            </div>
-        </nav>
 
         <!-- side nav content -->
         <ul id="slide-out" class="sidenav">
@@ -68,67 +63,79 @@
         </div>
 
         <div id="invoice_form">
-            <div class="card" style="padding: 25px; border-radius: 10px;">
-                <span class="card-title">1. Company details</span>
-
-                <div class="text-center" id="logo_display"></div>
-                <input type="file" id="company_logo" style="display: none;">
-                <a class="waves-effect waves-light btn-small black" accept="image/png, image/jpeg" onclick="uploadImage()"><i class="material-icons left">camera_alt</i>Upload logo</a> 
-                
-                <div>
-                    <center>
-                    <div class="input-field invoice_element">
-                        <input type="text" id="company_name">
-                        <label class="active" for="company_name">Name</label>
-                    </div>
-                    <div class="input-field invoice_element">
-                        <input type="email" id="company_email">
-                        <label class="active" for="company_email">Email</label>
-                    </div>
-                    <div class="input-field invoice_element">
-                        <input type="text" id="company_addr">
-                        <label class="active" for="company_addr">Address</label>
-                    </div>
-                    <div class="input-field invoice_element">
-                        <input type="url" id="company_web">
-                        <label class="active" for="company_web">Website URL</label>
-                    </div>
-                    <div class="input-field invoice_element">
-                        <input type="tel" id="company_tel">
-                        <label class="active" for="company_tel">Contact number</label>
+            <div class="row">
+                <div class="card">
+                    <div class="card-image" style="background-color: #FAACA8;
+                    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+                    height: 100px;">
                     </div>
 
-                    <div style="height: 50px;">
-                        <div style="float: left; width: 50%;">
-                            <a class="waves-effect waves-light btn-small black" onclick="saveData()"><i class="material-icons left">save</i>save details</a> 
+                    <div class="card-content">
+                        <span class="card-title">1. Company details</span>
+
+                        <div class="text-center" id="logo_display"></div>
+                        <input type="file" id="company_logo" style="display: none;">
+                        <a class="waves-effect waves-light btn-small black" accept="image/png, image/jpeg" onclick="uploadImage()"><i class="material-icons left">camera_alt</i>Upload logo</a> 
+                            
+                        <center>
+                        <div class="input-field invoice_element">
+                            <input type="text" id="company_name">
+                            <label class="active" for="company_name">Name</label>
                         </div>
-                        <div style="float: right; width: 50%;">
-                            <a class="waves-effect waves-light btn-small black" onclick="clearData()"><i class="material-icons left">delete</i>clear details</a>
+                        <div class="input-field invoice_element">
+                            <input type="email" id="company_email">
+                            <label class="active" for="company_email">Email</label>
                         </div>
+                        <div class="input-field invoice_element">
+                            <input type="text" id="company_addr">
+                            <label class="active" for="company_addr">Address</label>
+                        </div>
+                        <div class="input-field invoice_element">
+                            <input type="url" id="company_web">
+                            <label class="active" for="company_web">Website URL</label>
+                        </div>
+                        <div class="input-field invoice_element">
+                            <input type="tel" id="company_tel">
+                            <label class="active" for="company_tel">Contact number</label>
+                        </div>
+
+                        <div style="height: 50px;">
+                            <div style="float: left; width: 50%;">
+                                <a class="waves-effect waves-light btn-small black" onclick="saveData()"><i class="material-icons left">save</i>save details</a> 
+                            </div>
+                            <div style="float: right; width: 50%;">
+                                <a class="waves-effect waves-light btn-small black" onclick="clearData()"><i class="material-icons left">delete</i>clear details</a>
+                            </div>
+                        </div>
+                        </center>
                     </div>
-                    </center>
                 </div>
             </div>
             
-            <div class="card" style="padding: 25px; border-radius: 10px;">
-                <span class="card-title">2. Client details</span>
-                <center>
-                <div class="input-field invoice_element">
-                    <input type="text" id="client_name">
-                    <label for="client_name">Name</label>
+            <!--TODO: Make these cards similar to the first card i.e. use row->card->card-content classes-->
+            <div class="row">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">2. Client details</span>
+                        <center>
+                        <div class="input-field invoice_element">
+                            <input type="text" id="client_name">
+                            <label for="client_name">Name</label>
+                        </div>
+                        <div class="input-field invoice_element">
+                            <input type="tel" id="client_tel">
+                            <label for="client_tel">Contact number</label>
+                        </div>
+                        <div class="input-field invoice_element">
+                            <input type="text" id="client_place">
+                            <label for="client_place">Place</label>
+                        </div>
+                        </center>
+                    </div>
                 </div>
-                <div class="input-field invoice_element">
-                    <input type="tel" id="client_tel">
-                    <label for="client_tel">Contact number</label>
-                </div>
-                <div class="input-field invoice_element">
-                    <input type="text" id="client_place">
-                    <label for="client_place">Place</label>
-                </div>
-                </center>
             </div>
 
-            <div class="card" style="padding: 25px; border-radius: 10px;">
+            <div class="card" style="padding: 25px;">
                 <span class="card-title">3. Invoice content</span>
                 <center>
                 <div class="input-field  invoice_element">
@@ -143,12 +150,12 @@
                 </center>
             </div>
 
-            <div class="card" style="padding: 25px; border-radius: 10px;">
+            <div class="card" style="padding: 25px;">
                 <span class="card-title">4. Purchases</span>
                 <div class="row">
                     <div class="col s8 offset-s2">
                         <form onsubmit="return false;" class="pure-form">
-                            <input id="item-search" autofocus type="text" name="q" placeholder="Search for items stored in My Items here!" style="width:100%;max-width:600px;outline:0">
+                            <input id="item-search" type="text" name="q" placeholder="Search for items stored in My Items here!" style="width:100%;max-width:600px;outline:0">
                         </form>
                     </div>
                 </div>
@@ -156,7 +163,7 @@
                 <a class="btn-floating btn-medium waves-effect waves-light black" onclick="addItem()"><i class="material-icons">add</i></a>
             </div>
 
-            <div class="card" style="padding: 25px; border-radius: 10px;">
+            <div class="card" style="padding: 25px;">
                 <span class="card-title">5. Preview and Generate Invoice</span>
                 
                 <div style="padding: 30px;">
