@@ -19,6 +19,20 @@ function addItem() {
     addElement('items', 'p', 'item-' + itemId, html);
 }
 
+// function to add entry and fill it with sent item details
+function addNewItem(item) {
+    itemId++;
+    var html = '<div class="row">' +
+                '<div class="col s3"><input type="text" value="' + item['Name'] + '"/></div>' + 
+                '<div class="col s2"><input type="number" value="' + item['Qty'] + '"/></div>' + 
+                '<div class="col s2"><input type="number" value="' + item['Cost'] + '"/></div>' +
+                '<div class="col s2"><input type="number" min="0" max="100" value="' + item['Tax'] + '"/></div>' +
+                '<div class="col s2"><input type="number" min="0" max="100" value="' + item['Discount'] + '"/></div>' +
+                '<div class="col s1"><a class="btn-floating btn-medium waves-effect waves-light black" onclick="javascript:removeElement(\'item-' + 
+                itemId + '\'); return false;"><i class="material-icons">remove</i>Remove</a></div></div>';
+    addElement('items', 'p', 'item-' + itemId, html);
+}
+
 // adds a new item to the items divison
 function addElement(parentId, elementTag, elementId, html) {
     var p = document.getElementById(parentId);
@@ -228,5 +242,36 @@ function sendToFirestore(data) {
     })
     .catch(function(error) {
         alert("Error adding document to cloud.");
+    });
+}
+
+function retrieveUserItemsData() {
+    var user_email = firebase.auth().currentUser.email;
+
+    db.collection("items").doc(user_email)
+    .get()
+    .then(function(doc) {
+        if (doc.exists) {
+            var recv_data = doc.data();
+            var data = JSON.parse(recv_data['data']);
+
+            var items = data['items'];
+            var count = items.length;
+
+            for (var index = 0; index < count; index++) {
+                var item = items[index];
+                item.Qty = 1;
+
+                var key = item['Name'];
+                itemData[key] = item;
+                itemTerms.push(key);
+            }
+        }
+        else {
+
+        }
+    })
+    .catch(function(error) {
+        // alert("Error fetching your items data.");
     });
 }
