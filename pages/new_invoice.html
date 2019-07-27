@@ -32,8 +32,8 @@
             <li>
                 <div class="user-view">
                     
-                    <div class="background" >
-                        <img src="../images/default_user_bg.jpg">
+                    <div class="background" style="background-color: #8EC5FC;
+                    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);">
                     </div>
                     
                     <img id="user_image" class="circle" src="../images/default_user_image.png"></img>
@@ -46,10 +46,11 @@
             
             <li><a href="home.html"><i class="fas fa-home fa-lg"></i></i>Home</a></li>
             <li><a href="my_items.html"><i class="fas fa-shopping-bag fa-lg"></i></i>My Items</a></li>
+            <!-- <li><a href="#"><i class="fas fa-users fa-lg"></i></i>My Clients</a></li> -->
             <li><a href="new_invoice.html"><i class="fas fa-file-invoice fa-lg"></i></i>New Invoice</a></li>
             <li><a href="javascript:importInvoice('import_btn')"><input type="file" id="import_btn" style="display: none"><i class="fas fa-file-import fa-lg"></i>Import Data</input></a></li>
             <li><a href="history.html"><i class="fas fa-history fa-lg"></i></i>History</a></li>
-            <li><a href="#"><i class="fas fa-chart-bar fa-lg"></i></i>Analytics</a></li>
+            <!-- <li><a href="#"><i class="fas fa-chart-bar fa-lg"></i></i>Analytics</a></li> -->
 
             <li><div class="divider"></div></li>
             
@@ -73,30 +74,43 @@
                     <div class="card-content">
                         <span class="card-title">1. Company details</span>
 
-                        <div class="text-center" id="logo_display"></div>
-                        <input type="file" id="company_logo" style="display: none;">
-                        <a class="waves-effect waves-light btn-small black" accept="image/png, image/jpeg" onclick="uploadImage()"><i class="material-icons left">camera_alt</i>Upload logo</a> 
-                            
-                        <center>
-                        <div class="input-field invoice_element">
-                            <input type="text" id="company_name">
-                            <label class="active" for="company_name">Name</label>
-                        </div>
-                        <div class="input-field invoice_element">
-                            <input type="email" id="company_email">
-                            <label class="active" for="company_email">Email</label>
-                        </div>
-                        <div class="input-field invoice_element">
-                            <input type="text" id="company_addr">
-                            <label class="active" for="company_addr">Address</label>
-                        </div>
-                        <div class="input-field invoice_element">
-                            <input type="url" id="company_web">
-                            <label class="active" for="company_web">Website URL</label>
-                        </div>
-                        <div class="input-field invoice_element">
-                            <input type="tel" id="company_tel">
-                            <label class="active" for="company_tel">Contact number</label>
+                        <div class="row">
+                            <div class="col s4 grey-text" style="border-radius: 10px;" onclick="uploadImage()">
+                                <div id="logo_display"></div>
+                                <input type="file" id="company_logo" style="display: none;">
+                                <span id="logo_icon" style="font-size: 150px;">
+                                    <i class="fas fa-camera"></i>
+                                </span>
+                                <p style="padding: 10px;">
+                                    Tap to Add/Change Logo.
+                                </p>
+                            </div>
+
+                            <div class="col offset-s1 s7" style="border-radius: 10px;">
+                                <center>
+                                <div class="input-field invoice_element">
+                                    <input type="text" id="company_name">
+                                    <label class="active" for="company_name">Name</label>
+                                </div>
+                                <div class="input-field invoice_element">
+                                    <input type="email" id="company_email">
+                                    <label class="active" for="company_email">Email</label>
+                                </div>
+                                <div class="input-field invoice_element">
+                                    <input type="text" id="company_addr">
+                                    <label class="active" for="company_addr">Address</label>
+                                </div>
+                                <div class="input-field invoice_element">
+                                    <input type="url" id="company_web">
+                                    <label class="active" for="company_web">Website URL</label>
+                                </div>
+                                <div class="input-field invoice_element">
+                                    <input type="tel" id="company_tel">
+                                    <label class="active" for="company_tel">Contact number</label>
+                                </div>
+                                </center>
+                            </div>
+
                         </div>
 
                         <div style="height: 50px;">
@@ -107,16 +121,16 @@
                                 <a class="waves-effect waves-light btn-small black" onclick="clearData()"><i class="material-icons left">delete</i>clear details</a>
                             </div>
                         </div>
-                        </center>
                     </div>
                 </div>
             </div>
             
             <!--TODO: Make these cards similar to the first card i.e. use row->card->card-content classes-->
             <div class="row">
-                <div class="card">
+                <div class="card col s7">
                     <div class="card-content">
                         <span class="card-title">2. Client details</span>
+
                         <center>
                         <div class="input-field invoice_element">
                             <input type="text" id="client_name">
@@ -133,21 +147,42 @@
                         </center>
                     </div>
                 </div>
+
+                <div class="col s5">
+                    <div class="card white">
+                        <div class="card-image" style="background-color: #FF9A8B;
+                        background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+                        height: 50px;">
+                        </div>
+                            
+                        <div class="card-content grey-text">
+                        <span class="card-title"><i class="fas fa-users fa-med"></i> My Clients</span>
+                        <p>
+                            Add all your client at one place and search them from here 
+                            to auto-complete client details. Coming soon!
+                        </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" style="padding: 25px;">
-                <span class="card-title">3. Invoice content</span>
-                <center>
-                <div class="input-field  invoice_element">
-                    <input type="text" class="datepicker" id="invoice_date">
-                    <label for="invoice_msg">Date</label>
-                </div>
+            <div class="row">
+                <div class="card col s12">
+                    <div class="card-content">
+                        <span class="card-title">3. Invoice content</span>
+                        <center>
+                        <div class="input-field  invoice_element">
+                            <input type="text" class="datepicker" id="invoice_date">
+                            <label for="invoice_msg">Date</label>
+                        </div>
 
-                <div class="input-field invoice_element">
-                    <textarea class="materialize-textarea" id="invoice_msg"></textarea>
-                    <label for="invoice_msg">Invoice Message</label>
+                        <div class="input-field invoice_element">
+                            <textarea class="materialize-textarea" id="invoice_msg"></textarea>
+                            <label for="invoice_msg">Invoice Message</label>
+                        </div>
+                        </center>
+                    </div>
                 </div>
-                </center>
             </div>
 
             <div class="card" style="padding: 25px;">

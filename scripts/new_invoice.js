@@ -75,12 +75,14 @@ window.onload = function() {
                 img.src = reader.result;
 
                 img.id = "logo_image";
+
+                document.getElementById('logo_icon').innerHTML = "";
                 fileDisplayArea.appendChild(img);
             }
 
             reader.readAsDataURL(file);	
         } else {
-            fileDisplayArea.innerHTML = "File not supported!"
+            alert("File not supported!");
         }
     });
 
@@ -168,7 +170,7 @@ function getInvoiceData() {
     }
 
     // adding logo if present
-    if (document.getElementById('logo_display').innerHTML != '') {
+    if (!document.getElementById('logo_icon')) {
         data['logo_display'] = document.getElementById('logo_display').innerHTML;
     }
 
