@@ -63,9 +63,9 @@
         </div>
 
         <div id="invoice_form" class="row">
-            <div class="card white">
-                <div class="card-image" style="background-color: #FBAB7E;
-                background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+            <div class="card">
+                <div class="card-image" style="background-color: #FF9A8B;
+                background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
                 height: 100px;">
                 </div>
 
@@ -74,12 +74,12 @@
                     <thead>
                         <tr>
                             <th>Client Name</th>
-                            <th>Client Location</th>
-                            <th>Purchase Date</th>
+                            <th>Contact Number</th>
+                            <th>Place</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="user_data">
+                    <tbody id="user_clients">
                     </tbody>
                 </table>
 
@@ -96,16 +96,24 @@
                         </div>
                     </div>
                 </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col s6">
+                        <a class="btn-floating btn-large waves-effect waves-light black" onclick="addNewClient()"><i class="material-icons">add</i></a>
+                    </div>
+                    <div class="col s6">
+                        <a class="btn-floating btn-large waves-effect waves-light black" onclick="saveClients()"><i class="material-icons">backup</i></a>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
     </body>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
-    <script src="../scripts/auto_table.js"></script>
-    <script src="../scripts/generate.js"></script>
-    <script src="../scripts/history.js"></script>
-    <script src="../scripts/port.js"></script>
+    <script src="../scripts/my_clients.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
@@ -116,7 +124,7 @@
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                retrieveFromFirestore();
+                retrieveUsersFromFirestore();
                 if (user.photoURL) {
                     document.getElementById("user_image").src = user.photoURL;
                 }

@@ -33,6 +33,7 @@ function fillInvoice(data) {
     else {
         var elem = document.getElementById('logo_display');
         elem.innerHTML = '';
+        document.getElementById('logo_icon').innerHTML = '<i class="fas fa-camera"></i>';
     }
 
     M.updateTextFields();

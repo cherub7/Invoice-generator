@@ -33,6 +33,16 @@ function addNewItem(item) {
     addElement('items', 'p', 'item-' + itemId, html);
 }
 
+// function to autocomplete client details
+function fillClientDetails(client) {
+    var keys = ['client_name', 'client_tel', 'client_place'];
+
+    for (var i = 0; i < keys.length; i++)
+        document.getElementById(keys[i]).value = client[keys[i]];
+
+    M.updateTextFields();
+}
+
 // adds a new item to the items divison
 function addElement(parentId, elementTag, elementId, html) {
     var p = document.getElementById(parentId);
@@ -76,7 +86,7 @@ window.onload = function() {
 
                 img.id = "logo_image";
 
-                document.getElementById('logo_icon').innerHTML = "";
+                document.getElementById('logo_icon').innerHTML = '';
                 fileDisplayArea.appendChild(img);
             }
 
@@ -170,7 +180,7 @@ function getInvoiceData() {
     }
 
     // adding logo if present
-    if (!document.getElementById('logo_icon')) {
+    if (document.getElementById('logo_icon').innerHTML == '') {
         data['logo_display'] = document.getElementById('logo_display').innerHTML;
     }
 
@@ -214,7 +224,16 @@ function fillData() {
     for (var i = 0; i < 5; i++) {
         document.getElementById(keys[i]).value = store.getItem(keys[i]);
     }
-    document.getElementById('logo_display').innerHTML = store.getItem('logo_display');
+
+    var logo_image = store.getItem('logo_display');
+    if (logo_image) {
+        document.getElementById('logo_icon').innerHTML = '';
+        document.getElementById('logo_display').innerHTML = logo_image;
+    }
+    else {
+        document.getElementById('logo_icon').innerHTML = '<i class="fas fa-camera"></i>';
+    }
+
     M.updateTextFields();
 }
 
@@ -275,5 +294,35 @@ function retrieveUserItemsData() {
     })
     .catch(function(error) {
         // alert("Error fetching your items data.");
+    });
+}
+
+function retrieveUserClientsData() {
+    var user_email = firebase.auth().currentUser.email;
+
+    db.collection("clients").doc(user_email)
+    .get()
+    .then(function(doc) {
+        if (doc.exists) {
+            var recv_data = doc.data();
+            var data = JSON.parse(recv_data['data']);
+
+            var clients = data['clients'];
+            var count = clients.length;
+
+            for (var index = 0; index < count; index++) {
+                var client = clients[index];
+
+                var key = client['client_name'];
+                clientData[key] = client;
+                clientTerms.push(key);
+            }
+        }
+        else {
+
+        }
+    })
+    .catch(function(error) {
+        // alert("Error fetching your clients data.");
     });
 }

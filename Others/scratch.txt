@@ -1,5 +1,5 @@
 features:
-0. Generate invoice as PDF*
+0. Generate invoice as PDF
 1. Dynamically add/delete items
 2. Auto-calculate expenses
 4. remember <company> details using localStorage
@@ -10,17 +10,23 @@ features:
 9. History list of all PDFs generated
 10. export and import files(txt for now)
 11. Welcome Dashboard for user with info*
-12. Maintain inventory
+12. My items
+13. My clients
 
-to add:
+.... (end of v-1.0)
+
+Will pick these up some other time!
+
 1. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
 2. bill status(PAID IN FULL, DUE etc)
 3. Generate multiple invoices from xls/xml files
-4. Major code refactoring(js best practices)
-5. add faq, more details on index page
-6. encrypt data on cloud and on imports/exports
-7. Basic Analytics
+4. add faq, more details on index page
+5. encrypt data on cloud and on imports/exports
+6. Basic Analytics
+7. Proposal to publish on materialize CSS gallery
+
 ....
+
 50. download all the dependencies into the project
 100. <xls, xml, csv> parsing to generate multiple invoices at a go
 500. encrypted export/import
@@ -30,6 +36,7 @@ to add:
 50000. bar code scanner(just like air ticket)
 99999. add DB for the products that user can add
 999999. analytics
+9999999. Buy a domain name and move to AWS
 
 limitations:
 1. cannot load data onto firebase if data size >= 1Mb
