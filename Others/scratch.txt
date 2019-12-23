@@ -15,15 +15,12 @@ features:
 
 .... (end of v-1.0)
 
-Will pick these up some other time!
-
-1. prettier pdf(colors, positioning, omitting unentered details +done+, table +done+)
-2. bill status(PAID IN FULL, DUE etc)
-3. Generate multiple invoices from xls/xml files
-4. add faq, more details on index page
-5. encrypt data on cloud and on imports/exports
-6. Basic Analytics
-7. Proposal to publish on materialize CSS gallery
+1. editable bill status(PAID IN FULL, DUE etc) and balance
+2. Generate multiple invoices from xls/xml files
+3. add faq, more details on index page
+4. encrypt data on cloud and on imports/exports
+5. Basic Analytics
+6. Proposal to publish on materialize CSS gallery
 
 ....
 
