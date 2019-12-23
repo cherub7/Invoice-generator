@@ -73,7 +73,7 @@ function addClient(client) {
     var clientId = 'client-' + clientUID;
     clientUID++;
 
-    var client_name = "<td><input type='text' value=" + client['client_name'] + "></td>";
+    var client_name = "<td><input type='text' value='" + client['client_name'] + "'></td>";
     var client_number = "<td><input type='number' value=" + client['client_tel'] + "></td>";
     var client_place = "<td><input type='text' value=" + client['client_place'] + "></td>";
     var actions = '<td><a class="btn-floating btn-medium waves-effect waves-light black" onclick="javascript:removeClient(\'' + 

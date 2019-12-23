@@ -74,7 +74,7 @@ function addItem(item) {
     var itemId = 'item-' + itemUID;
     itemUID++;
 
-    var item_name = "<td><input type='text' value="+ item['Name'] + "></td>";
+    var item_name = "<td><input type='text' value='"+ item['Name'] + "'></td>";
     var item_cost = "<td><input type='number' value="+ item['Cost'] + "></td>";
     var item_tax = "<td><input type='number' value="+ item['Tax'] + "></td>";
     var item_discount = "<td><input type='number' value="+ item['Discount'] + "></td>";
