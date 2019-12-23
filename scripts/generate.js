@@ -45,56 +45,61 @@ function generateHeader(doc, data) {
 
     doc.setFontSize(15);
     doc.setFont('helvetica', 'bold');
-    
+    doc.setTextColor(65, 160, 240);
+
     y_pos += 7;
     doc.text(x_pos, y_pos, company_name);
-
+    
+    doc.setTextColor(0,0,0)
     doc.setFontSize(13);
     doc.setFont('helvetica', 'normal');
     
     // add only entered details into pdf
     if (company_email) { 
-        y_pos += 5;
+        y_pos += 6;
         doc.text(x_pos, y_pos, company_email);
     }
 
     if (company_addr) { 
-        y_pos += 5;
+        y_pos += 6;
         doc.text(x_pos, y_pos, company_addr);
     }
     
     if (company_web) { 
-        y_pos += 5;
+        y_pos += 6;
         doc.text(x_pos, y_pos, company_web);
     }
     
     if (company_tel) { 
-        y_pos += 5;
+        y_pos += 6;
         doc.text(x_pos, y_pos, company_tel);
     }
 
     // line to mark the end of header
-    y_pos = 47;
-    doc.line(10, y_pos, 200, 45);
+    // y_pos = 47;
+    // doc.line(10, y_pos, 200, 45);
 }
 
 // function to generate lower part of the invoice
 function generateInvoice(doc, data) {
     doc.setFontSize(15);
     doc.setFont('helvetica', 'bold');
+    doc.setTextColor(65, 160, 240);
 
-    doc.text(85, 55, 'BILL RECEIPT')
+    doc.text(85, 65, 'BILL RECEIPT')
     
+    doc.setTextColor(0, 0, 0);
+
     client_name = data['client_name'];
     client_tel = data['client_tel'];
     client_place = data['client_place'];
     invoice_date = data['invoice_date'];
     invoice_msg = data['invoice_msg'];
 
-    doc.setFontSize(13);
+    doc.setFontSize(12);
     doc.setFont('helvetica', 'normal');
 
-    var y_pos = 59;
+    var y_pos = 69;
 
     if (client_name) {
         y_pos += 5;
@@ -111,7 +116,7 @@ function generateInvoice(doc, data) {
         doc.text(15, y_pos, 'Place: ' + client_place);
     }
 
-    doc.text(15, 82, '     ' + invoice_msg);
+    doc.text(15, y_pos + 10, '     ' + invoice_msg);
 
     generatePurchaseList(doc, data);
 }

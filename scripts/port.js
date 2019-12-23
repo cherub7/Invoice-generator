@@ -28,7 +28,9 @@ function fillInvoice(data) {
     if (data.logo_display) {
         var elem = document.getElementById('logo_display');
         elem.innerHTML = data['logo_display'];
-        elem.firstChild.id = 'logo_display';
+        elem.firstChild.id = 'logo_image';
+        
+        document.getElementById('logo_icon').innerHTML = '';
     }
     else {
         var elem = document.getElementById('logo_display');
