@@ -145,8 +145,20 @@ function generatePurchaseList(doc, data) {
     }
     // last item i.e. total row
     item = purchase_list[purchase_list.length - 1];
-    items.push([item.Name, item.Qty, item.Cost, item.Tax, item.Discount, financial(item.Total)]);
+    items.push(['[ TOTAL ]', item.Qty, item.Cost, item.Tax, item.Discount, financial(item.Total)]);
 
+    var payment_list = data['purchase_list']['payment_data'];
+
+    if (payment_list) {
+        for (var i = 0; i < payment_list.length; i++) {
+            item = payment_list[i];
+            items.push([item.Name, item.Qty, item.Cost, item.Tax, item.Discount, financial(item.Total)]);
+        }
+    }
+    else {
+        items.push(['[ PAID ]', '', '', '', '', financial(item.Total)]);
+        items.push(['[ BALANCE ]', '', '', '', '', financial(0)]);
+    }
 
     doc.autoTable({
         startY: 120,

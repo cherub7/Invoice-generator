@@ -186,6 +186,13 @@
                 </div>
                 <div id="items"></div>
                 <a class="btn-floating btn-medium waves-effect waves-light black" onclick="addItem()"><i class="material-icons">add</i></a>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">account_balance_wallet</i>
+                        <input id="invoice_paid_amount" type="number" class="validate" placeholder="0.00">
+                        <label for="invoice_paid_amount">Paid Amount</label>
+                    </div>
+                </div>
             </div>
 
             <div class="card" style="padding: 25px;">
@@ -275,7 +282,7 @@
                 retrieveUserItemsData();
                 retrieveUserClientsData();
             } else {
-                window.location = "../index.html";
+                // window.location = "../index.html";
             }
         });
 

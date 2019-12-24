@@ -164,8 +164,40 @@ function getPurchasesData() {
     items.push(total_item);
 
     data['items'] = items;
+    data['payment_data'] = getPaymentData(total_cost);
 
     return data;
+}
+
+// function to add payment data into the invoice data
+function getPaymentData(total) {  
+    var paid_div = document.getElementById('invoice_paid_amount');
+    var paid = Number.parseFloat(paid_div.value);
+    
+    if (isNaN(paid))
+        paid = 0;
+
+    var paid_item = {
+        'Name': '[ PAID ]',
+        'Qty': '',
+        'Cost': '',
+        'Tax': '',
+        'Discount': '',
+        'Total': paid
+    }
+
+    var balance = total - paid;
+    
+    var balance_item = {
+        'Name': '[ BALANCE ]',
+        'Qty': '',
+        'Cost': '',
+        'Tax': '',
+        'Discount': '',
+        'Total': balance
+    }
+
+    return [paid_item, balance_item];
 }
 
 // function to build a json object to store invoice data
@@ -173,7 +205,7 @@ function getInvoiceData() {
     var data = {};
 
     var data_keys = ['company_name', 'company_email', 'company_addr', 'company_web', 'company_tel',
-                     'client_name', 'client_tel', 'client_place', 'invoice_date', 'invoice_msg'];
+                     'client_name', 'client_tel', 'client_place', 'invoice_date', 'invoice_msg', 'invoice_paid_amount'];
 
     for (var i = 0; i < data_keys.length; i++) {
         data[data_keys[i]] = document.getElementById(data_keys[i]).value;
@@ -186,6 +218,11 @@ function getInvoiceData() {
 
     // to add purchase_list key
     data['purchase_list'] = getPurchasesData();
+
+    // storing balance for history page
+    var items = data['purchase_list']['payment_data'];
+    var balance = items[items.length - 1]['Total'];
+    data['invoice_balance'] = balance;
 
     return data;
 }
