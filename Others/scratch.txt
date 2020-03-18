@@ -12,7 +12,7 @@ features:
 11. Welcome Dashboard for user with info*
 12. My items
 13. My clients
-14. Update balance of a generated invoice
+14. Update details of generated invoice
 
 .... (end of v-1.0)
 
@@ -21,6 +21,7 @@ features:
 3. encrypt data on cloud and on imports/exports
 4. Basic Analytics
 5. Proposal to publish on materialize CSS gallery
+6. Add tool tips to various buttons
 
 ....
 

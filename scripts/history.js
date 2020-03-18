@@ -28,9 +28,10 @@ function retrieveFromFirestore() {
             var preview_button = '<a class="btn-floating btn-medium waves-effect waves-light black" onclick="previewInvoice(\'' + doc.id + '\')"><i class="material-icons left">visibility</i></a> ';
             var download_button = '<a class="btn-floating btn-medium waves-effect waves-light black" onclick="downloadInvoice(\'' + doc.id + '\')"><i class="material-icons left">picture_as_pdf</i></a> ' ;
             var export_button = '<a id="anc-' + doc.id + '" class="btn-floating btn-medium waves-effect waves-light black" onclick="exportHistoryInvoice(\'' + doc.id + '\')"><i class="material-icons left">note_add</i></a> ';
+            var edit_button = '<a id="edt-' + doc.id + '" class="btn-floating btn-medium waves-effect waves-light black" href="./edit_invoice.html?id=' + doc.id + '"><i class="material-icons left">edit</i></a>';
             var delete_button = '<a id="del-' + doc.id + '" class="btn-floating btn-medium waves-effect waves-light black" onclick="deleteInvoice(\'' + doc.id + '\')"><i class="material-icons left">delete</i></a>';
 
-            var entry_data = "<td>" + invoice['client_name'] + "</td><td>" + invoice["client_place"] + "</td><td>" + invoice['invoice_date'] + "</td><td>" + getPaymentStatus(invoice["invoice_balance"], doc.id) + "</td><td>" + preview_button + download_button + export_button + delete_button + "</td>";
+            var entry_data = "<td>" + invoice['client_name'] + "</td><td>" + invoice["client_place"] + "</td><td>" + invoice['invoice_date'] + "</td><td>" + getPaymentStatus(invoice["invoice_balance"], doc.id) + "</td><td>" + preview_button + download_button + export_button + edit_button + delete_button + "</td>";
             
             var history_entry = document.createElement("tr");
             history_entry.innerHTML = entry_data;

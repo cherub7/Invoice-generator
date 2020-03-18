@@ -27,47 +27,17 @@
     
     <body>
 
-        <!-- side nav content -->
-        <ul id="slide-out" class="sidenav">
-            <li>
-                <div class="user-view">
-                    
-                    <div class="background" style="background-color: #8EC5FC;
-                    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);">
-                    </div>
-                    
-                    <img id="user_image" class="circle" src="../images/default_user_image.png"></img>
-                    <div id="user_name" class="white-text name"></div>
-                    <div id="user_email" class="white-text email"></div>
-                </div>
-            </li>
-            
-            <li><a class="subheader">Actions</a></li>
-            
-            <li><a href="home.html"><i class="fas fa-home fa-lg"></i></i>Home</a></li>
-            <li><a href="my_items.html"><i class="fas fa-shopping-bag fa-lg"></i></i>My Items</a></li>
-            <li><a href="my_clients.html"><i class="fas fa-users fa-lg"></i></i>My Clients</a></li>
-            <li><a href="new_invoice.html"><i class="fas fa-file-invoice fa-lg"></i></i>New Invoice</a></li>
-            <li><a href="javascript:importInvoice('import_btn')"><input type="file" id="import_btn" style="display: none"><i class="fas fa-file-import fa-lg"></i>Import Data</input></a></li>
-            <li><a href="history.html"><i class="fas fa-history fa-lg"></i></i>History</a></li>
-            <!-- <li><a href="#"><i class="fas fa-chart-bar fa-lg"></i></i>Analytics</a></li> -->
-
-            <li><div class="divider"></div></li>
-            
-            <li><a href="javascript:logOutUser();"><i class="fas fa-sign-out-alt fa-lg"></i>Logout</a></li>
-        </ul>
-             
         <div style="padding: 10px; position: fixed;">
-            <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating btn-large waves-effect waves-light black">
-            <i class="material-icons">menu</i>
+            <a href="history.html" data-target="slide-out" class="sidenav-trigger btn-floating btn-large waves-effect waves-light black">
+            <i class="material-icons">arrow_back</i>
             </a>
         </div>
 
         <div id="invoice_form">
             <div class="row">
                 <div class="card">
-                    <div class="card-image" style="background-color: #FAACA8;
-                    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+                    <div class="card-image" style="background-color: #FBAB7E;
+                    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
                     height: 100px;">
                     </div>
 
@@ -111,15 +81,6 @@
                                 </center>
                             </div>
 
-                        </div>
-
-                        <div style="height: 50px;">
-                            <div style="float: left; width: 50%;">
-                                <a class="waves-effect waves-light btn-small black" onclick="saveData()"><i class="material-icons left">save</i>save details</a> 
-                            </div>
-                            <div style="float: right; width: 50%;">
-                                <a class="waves-effect waves-light btn-small black" onclick="clearData()"><i class="material-icons left">delete</i>clear details</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,18 +157,14 @@
             </div>
 
             <div class="card" style="padding: 25px;">
-                <span class="card-title">5. Preview and Generate Invoice</span>
+                <span class="card-title">5. Save Details</span>
                 
                 <div style="padding: 30px;">
                     <a class="waves-effect waves-light btn-large black" onclick="previewInvoice()"><i class="material-icons left">visibility</i>Preview Invoice</a>
                 </div>
 
                 <div style="padding: 30px;">
-                    <a id="export_btn" class="waves-effect waves-light btn-large black" onclick="exportInvoice('export_btn', null)"><i class="material-icons left">note_add</i>Export Data</a>
-                </div>
-                
-                <div style="padding: 30px;">
-                    <a class="waves-effect waves-light btn-large black" onclick="downloadInvoice()"><i class="material-icons left">picture_as_pdf</i>Download Invoice</a>
+                    <a class="waves-effect waves-light btn-large black" onclick="saveDetails()"><i class="material-icons left">cloud_upload</i>Save Details</a>
                 </div>
             </div>
         </div>
@@ -215,21 +172,17 @@
     
     <script src="../external-scripts/jspdf.min.js" ></script>
     <script src="../scripts/firebase.js"></script>
-    <script src="../scripts/new_invoice.js"></script>
-    <script src="../scripts/generate.js"></script>
     <script src="../scripts/port.js"></script>
+    <script src="../scripts/generate.js"></script>
+    <script src="../scripts/edit_invoice.js"></script>
     <script src="../external-scripts/materialize.min.js"></script>
     <script src="../external-scripts/auto-table.min.js"></script>
     <script src="../external-scripts/auto-complete.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.sidenav');
-            var instances = M.Sidenav.init(elems, {});
-        });
-
         var itemData = {}; // map with name as key 
         var itemTerms = []; // array of names of the items
+        var userEmail = ''; // email of the user
 
         var itemsSearcher = new autoComplete({
             selector: '#item-search',
@@ -274,12 +227,7 @@
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                if (user.photoURL) {
-                    document.getElementById("user_image").src = user.photoURL;
-                }
-                document.getElementById("user_name").innerText = user.displayName;
-                document.getElementById("user_email").innerText = user.email;
-
+                userEmail = user.email;
                 retrieveUserItemsData();
                 retrieveUserClientsData();
             } else {
