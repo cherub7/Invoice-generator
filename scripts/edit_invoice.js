@@ -118,6 +118,12 @@ function addElement(parentId, elementTag, elementId, html) {
     p.appendChild(newElement);
 }
 
+// removes an item from the items division
+function removeElement(elementId) {
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
+}
+
 /**************************************************************************************************
  * Mathods to generate json from the document
  **************************************************************************************************/
